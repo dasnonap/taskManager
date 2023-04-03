@@ -17,10 +17,12 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('title');
             $table->string('description');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->integer('user_id')->references('id')->on('users');
+            $table->timestamp('start_date', 0);
+            $table->timestamp('end_date', 0);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
