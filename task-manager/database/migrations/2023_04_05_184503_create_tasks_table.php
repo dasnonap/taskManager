@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('title');
-            $table->string('description');
-            $table->timestamp('start_date', 0);
-            $table->timestamp('end_date', 0);
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('creator_id');
+            $table->unsignedBigInteger('developer_id');
+            $table->boolean('active');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('task_id')->references('id')->on('task');
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('developer_id')->references('id')->on('users');
         });
     }
 

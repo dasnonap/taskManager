@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->boolean('active');
+        Schema::create('task', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('description')->nullable();
+            $table->timestampTz('start_time', 0);
+            $table->timestampTz('end_time', 0);
+            $table->timestampTz('closed_at', 0);
+            $table->timestamps();
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('task');
     }
 };
