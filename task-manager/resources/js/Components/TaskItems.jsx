@@ -1,4 +1,3 @@
 export default function TaskItems({ tasks }) {
-    console.log(tasks);
-    return <div>alo</div>;
+    return <div className="py-12">alo</div>;
 }

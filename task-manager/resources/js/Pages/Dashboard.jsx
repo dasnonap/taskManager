@@ -1,8 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import TaskItems from "@/Components/TaskItems";
+import InsertTask from "@/Components/InsertTask";
 
 export default function Dashboard({ auth, errors }) {
+    const handleTaskInsert = (event) => {
+        event.preventDefault();
+
+        console.log("Creating...");
+        // post(route("task.create"));
+    };
+
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -15,9 +23,9 @@ export default function Dashboard({ auth, errors }) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <TaskItems tasks={[]} />
-            </div>
+            <InsertTask className="" onInsertTaks={handleTaskInsert} />
+
+            <TaskItems tasks={[]} />
         </AuthenticatedLayout>
     );
 }
