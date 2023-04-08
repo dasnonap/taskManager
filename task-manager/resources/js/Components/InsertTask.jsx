@@ -5,7 +5,7 @@ import PrimaryButton from "./PrimaryButton";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
 
-export default function InsertTask({ className, onInsertTask }) {
+export default function InsertTask({ className }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         description: "",
@@ -21,6 +21,14 @@ export default function InsertTask({ className, onInsertTask }) {
                 : event.target.value
         );
     };
+
+    const handleTaskInsert = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        // console.log(formData.getAll("title"));
+        post(route("task.create"));
+    };
     return (
         <div
             className={
@@ -32,7 +40,7 @@ export default function InsertTask({ className, onInsertTask }) {
                 <h3 className="font-extrabold text-4xl">Create new Task</h3>
             </div>
 
-            <form onSubmit={onInsertTask} className="w-full">
+            <form onSubmit={handleTaskInsert} className="w-full">
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col w-full">
                         <InputLabel
@@ -42,6 +50,7 @@ export default function InsertTask({ className, onInsertTask }) {
                         />
 
                         <TextInput
+                            required={true}
                             id="title"
                             type="text"
                             name="title"
@@ -77,6 +86,7 @@ export default function InsertTask({ className, onInsertTask }) {
                         />
 
                         <input
+                            required={true}
                             type="date"
                             id="start_at"
                             name="start_at"
@@ -92,6 +102,7 @@ export default function InsertTask({ className, onInsertTask }) {
                         />
 
                         <input
+                            required={true}
                             type="date"
                             id="end_at"
                             name="end_at"

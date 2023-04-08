@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\TasksController;
 use Inertia\Inertia;
 
 /*
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     });
+
+    Route::post('/task/create', [TasksController::class, 'create'])->name('task.create');
 });
 
 require __DIR__ . '/auth.php';

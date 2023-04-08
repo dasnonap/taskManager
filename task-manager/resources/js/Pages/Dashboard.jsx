@@ -4,13 +4,6 @@ import TaskItems from "@/Components/TaskItems";
 import InsertTask from "@/Components/InsertTask";
 
 export default function Dashboard({ auth, errors }) {
-    const handleTaskInsert = (event) => {
-        event.preventDefault();
-
-        console.log("Creating...");
-        // post(route("task.create"));
-    };
-
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -23,7 +16,7 @@ export default function Dashboard({ auth, errors }) {
         >
             <Head title="Dashboard" />
 
-            <InsertTask className="" onInsertTaks={handleTaskInsert} />
+            <InsertTask className="" />
 
             <TaskItems tasks={[]} />
         </AuthenticatedLayout>
