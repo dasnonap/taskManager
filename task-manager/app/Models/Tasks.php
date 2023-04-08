@@ -10,4 +10,13 @@ class Tasks extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    public $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'start_time',
+        'end_time',
+        'closed_at'
+    ];
 }
