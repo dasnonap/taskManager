@@ -4,6 +4,8 @@ import TextArea from "./TextArea";
 import PrimaryButton from "./PrimaryButton";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
+import { useContext } from "react";
+import { PopupContext } from "./PopupContext";
 
 export default function InsertTask({ className }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,7 +14,7 @@ export default function InsertTask({ className }) {
         start_at: "",
         end_at: "",
     });
-
+    let { isPopupDisplaying, setIsPopupDisplaying } = useContext(PopupContext);
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -26,95 +28,119 @@ export default function InsertTask({ className }) {
         event.preventDefault();
         const formData = new FormData(event.target);
 
-        // console.log(formData.getAll("title"));
-        post(route("task.create"));
+        post(
+            route("task.create", {
+                onSuccess: () =>
+                    reset("title", "description", "start_at", "end_at"),
+            })
+        );
     };
     return (
-        <div
-            className={
-                `border border-1 w-1/3 p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center` +
-                className
-            }
-        >
-            <div className="mb-4">
-                <h3 className="font-extrabold text-4xl">Create new Task</h3>
-            </div>
+        <div>
+            <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    setIsPopupDisplaying(!isPopupDisplaying);
+                }}
+            >
+                Click me
+            </button>
 
-            <form onSubmit={handleTaskInsert} className="w-full">
-                <div className="flex flex-col gap-5">
-                    <div className="flex flex-col w-full">
-                        <InputLabel
-                            for="title"
-                            value="Title"
-                            className="text-l font-bold tracking-wide"
-                        />
-
-                        <TextInput
-                            required={true}
-                            id="title"
-                            type="text"
-                            name="title"
-                            value={data.title}
-                            className="mt-1 block w-full"
-                            handleChange={onHandleChange}
-                        />
-                    </div>
-
-                    <div className="flex flex-col w-full">
-                        <InputLabel
-                            for="description"
-                            value="Description"
-                            className="text-l font-bold tracking-wide"
-                        />
-
-                        <TextArea
-                            name="description"
-                            id="description"
-                            cols="20"
-                            rows="10"
-                            className="mt-1 block w-full"
-                            handleChange={onHandleChange}
-                            value={data.description}
-                        />
-                    </div>
-
-                    <div className="flex flex-col w-full">
-                        <InputLabel
-                            for="start_at"
-                            value="Choose starting date"
-                            className="text-l font-bold tracking-wide"
-                        />
-
-                        <input
-                            required={true}
-                            type="date"
-                            id="start_at"
-                            name="start_at"
-                            onChange={onHandleChange}
-                        />
-                    </div>
-
-                    <div className="flex flex-col w-full">
-                        <InputLabel
-                            for="end_at"
-                            value="Choose ending date"
-                            className="text-l font-bold tracking-wide"
-                        />
-
-                        <input
-                            required={true}
-                            type="date"
-                            id="end_at"
-                            name="end_at"
-                            onChange={onHandleChange}
-                        />
-                    </div>
+            <div
+                className={
+                    `popup border border-1 w-1/3 p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed inset-0 ` +
+                    className +
+                    (isPopupDisplaying === true ? ` block ` : ` hidden`)
+                }
+            >
+                <div className="mb-4">
+                    <h3 className="font-extrabold text-4xl">Create new Task</h3>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsPopupDisplaying(!isPopupDisplaying);
+                        }}
+                    >
+                        cLOSE me
+                    </button>
                 </div>
 
-                <PrimaryButton className="mt-6" processing={processing}>
-                    Add New
-                </PrimaryButton>
-            </form>
+                <form onSubmit={handleTaskInsert} className="w-full">
+                    <div className="flex flex-col gap-5">
+                        <div className="flex flex-col w-full">
+                            <InputLabel
+                                for="title"
+                                value="Title"
+                                className="text-l font-bold tracking-wide"
+                            />
+
+                            <TextInput
+                                required={true}
+                                id="title"
+                                type="text"
+                                name="title"
+                                value={data.title}
+                                className="mt-1 block w-full"
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                            <InputLabel
+                                for="description"
+                                value="Description"
+                                className="text-l font-bold tracking-wide"
+                            />
+
+                            <TextArea
+                                name="description"
+                                id="description"
+                                cols="20"
+                                rows="10"
+                                className="mt-1 block w-full"
+                                handleChange={onHandleChange}
+                                value={data.description}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                            <InputLabel
+                                for="start_at"
+                                value="Choose starting date"
+                                className="text-l font-bold tracking-wide"
+                            />
+
+                            <input
+                                required={true}
+                                type="date"
+                                id="start_at"
+                                name="start_at"
+                                onChange={onHandleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                            <InputLabel
+                                for="end_at"
+                                value="Choose ending date"
+                                className="text-l font-bold tracking-wide"
+                            />
+
+                            <input
+                                required={true}
+                                type="date"
+                                id="end_at"
+                                name="end_at"
+                                onChange={onHandleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <PrimaryButton className="mt-6" processing={processing}>
+                        Add New
+                    </PrimaryButton>
+                </form>
+            </div>
         </div>
     );
 }

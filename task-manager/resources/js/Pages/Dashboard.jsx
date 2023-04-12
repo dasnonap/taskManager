@@ -1,9 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { useState } from "react";
 import TaskItems from "@/Components/TaskItems";
 import InsertTask from "@/Components/InsertTask";
+import { PopupContext } from "@/Components/PopupContext";
 
 export default function Dashboard({ auth, errors }) {
+    const [isPopupDisplaying, setIsPopupDisplaying] = useState(false);
+
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -14,11 +18,23 @@ export default function Dashboard({ auth, errors }) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <PopupContext.Provider
+                value={{ isPopupDisplaying, setIsPopupDisplaying }}
+            >
+                <div
+                    className={
+                        isPopupDisplaying === true
+                            ? `body-test popup-active`
+                            : `body-test`
+                    }
+                >
+                    <Head title="Dashboard" />
 
-            <InsertTask className="" />
+                    <InsertTask className="" />
 
-            <TaskItems tasks={[]} />
+                    <TaskItems tasks={[]} />
+                </div>
+            </PopupContext.Provider>
         </AuthenticatedLayout>
     );
 }
