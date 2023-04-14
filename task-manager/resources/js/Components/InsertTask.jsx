@@ -6,6 +6,7 @@ import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
 import { useContext } from "react";
 import { PopupContext } from "./PopupContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function InsertTask({ className }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -37,32 +38,43 @@ export default function InsertTask({ className }) {
     };
     return (
         <div>
-            <button
+            <PrimaryButton
                 onClick={(e) => {
                     e.preventDefault();
                     setIsPopupDisplaying(!isPopupDisplaying);
                 }}
+                type="button"
             >
-                Click me
-            </button>
+                Create Task
+            </PrimaryButton>
 
             <div
                 className={
-                    `popup border border-1 w-1/3 p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed inset-0 ` +
+                    `popup border border-1 rounded-md w-1/3 p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed inset-0 w-1/2 transition-all overflow-auto` +
                     className +
-                    (isPopupDisplaying === true ? ` block ` : ` hidden`)
+                    (isPopupDisplaying === true
+                        ? ` visible opacity-100 `
+                        : ` invisible opacity-0`)
                 }
             >
-                <div className="mb-4">
+                <div className="mb-4 flex justify-content-center">
+                    <div></div>
+
                     <h3 className="font-extrabold text-4xl">Create new Task</h3>
-                    <button
+
+                    <PrimaryButton
                         onClick={(e) => {
                             e.preventDefault();
                             setIsPopupDisplaying(!isPopupDisplaying);
                         }}
+                        className="absolute top-8 right-5 group"
+                        type="button"
                     >
-                        cLOSE me
-                    </button>
+                        <FontAwesomeIcon
+                            icon="fa-solid fa-xmark"
+                            className="transition-all group-hover:rotate-45"
+                        />
+                    </PrimaryButton>
                 </div>
 
                 <form onSubmit={handleTaskInsert} className="w-full">
