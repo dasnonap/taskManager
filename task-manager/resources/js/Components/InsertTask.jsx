@@ -15,7 +15,9 @@ export default function InsertTask({ className }) {
         start_at: "",
         end_at: "",
     });
-    let { isPopupDisplaying, setIsPopupDisplaying } = useContext(PopupContext);
+    const { popupInfo, setIsPopupDisplaying } = useContext(PopupContext);
+    const isPopupDisplaying =
+        typeof popupInfo !== "undefined" ? popupInfo.isDisplaying : false;
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -27,7 +29,6 @@ export default function InsertTask({ className }) {
 
     const handleTaskInsert = (event) => {
         event.preventDefault();
-        const formData = new FormData(event.target);
 
         post(
             route("task.create", {
@@ -37,11 +38,14 @@ export default function InsertTask({ className }) {
         );
     };
     return (
-        <div>
+        <div className={className}>
             <PrimaryButton
                 onClick={(e) => {
                     e.preventDefault();
-                    setIsPopupDisplaying(!isPopupDisplaying);
+                    setIsPopupDisplaying({
+                        isDisplaying: !isPopupDisplaying,
+                        type: "tasks",
+                    });
                 }}
                 type="button"
             >
@@ -50,9 +54,8 @@ export default function InsertTask({ className }) {
 
             <div
                 className={
-                    `popup border border-1 rounded-md w-1/3 p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed inset-0 w-1/2 transition-all overflow-auto` +
-                    className +
-                    (isPopupDisplaying === true
+                    `popup border border-1 rounded-md p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed h-fit inset-0 w-1/2 transition-all overflow-auto` +
+                    (isPopupDisplaying === true && popupInfo.type === "tasks"
                         ? ` visible opacity-100 `
                         : ` invisible opacity-0`)
                 }
@@ -65,7 +68,10 @@ export default function InsertTask({ className }) {
                     <PrimaryButton
                         onClick={(e) => {
                             e.preventDefault();
-                            setIsPopupDisplaying(!isPopupDisplaying);
+                            setIsPopupDisplaying({
+                                isDisplaying: !isPopupDisplaying,
+                                type: "",
+                            });
                         }}
                         className="absolute top-8 right-5 group"
                         type="button"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RowsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/task/create', [TasksController::class, 'create'])->name('task.create');
+
+    Route::post('/row/create', [RowsController::class, 'create'])->name('row.create');
 });
 
 require __DIR__ . '/auth.php';

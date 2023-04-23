@@ -1,6 +1,9 @@
 import { createContext } from "react";
 
 export const PopupContext = createContext({
-    isPopupDisplaying: false,
-    setIsPopupDisplaying: (isDisplaying) => {},
+    popupInfo: {
+        isDisplaying: false,
+        type: "",
+    },
+    setIsPopupDisplaying: (popupInfo) => {},
 });
