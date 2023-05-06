@@ -17,6 +17,7 @@ class Tasks extends Model
         'description',
         'start_time',
         'end_time',
-        'closed_at'
+        'closed_at',
+        'column_id',
     ];
 }

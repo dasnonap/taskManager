@@ -12,7 +12,8 @@ export default function InsertColumn({ className }) {
     const isPopupDisplaying =
         typeof popupInfo !== "undefined" ? popupInfo.isDisplaying : false;
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
+        title: "",
+        position: 1,
     });
     const onHandleChange = (event) => {
         setData(
@@ -29,7 +30,7 @@ export default function InsertColumn({ className }) {
         post(
             route("row.create", {
                 onSuccess: () => {
-                    reset("name");
+                    reset("title");
                 },
             })
         );
@@ -85,17 +86,35 @@ export default function InsertColumn({ className }) {
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col w-full">
                             <InputLabel
-                                for="name"
-                                value="Name"
+                                for="title"
+                                value="Title"
                                 className="text-l font-bold tracking-wide"
                             />
 
                             <TextInput
-                                id="name"
+                                id="title"
                                 required={true}
                                 type="text"
-                                name="name"
+                                name="title"
                                 value={data.name}
+                                className="mt-1 block w-full"
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                            <InputLabel
+                                for="position"
+                                value="Position"
+                                className="text-l font-bold tracking-wide"
+                            />
+
+                            <TextInput
+                                id="position"
+                                required={true}
+                                type="number"
+                                name="position"
+                                value={data.position}
                                 className="mt-1 block w-full"
                                 handleChange={onHandleChange}
                             />
