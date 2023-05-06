@@ -5,6 +5,7 @@ import TaskItems from "@/Components/TaskItems";
 import InsertTask from "@/Components/InsertTask";
 import { PopupContext } from "@/Components/PopupContext";
 import InsertColumn from "@/Components/InsertRowColumn";
+import TasksListing from "@/Components/TasksListing";
 
 export default function Dashboard({ auth, errors }) {
     const [popupInfo, setIsPopupDisplaying] = useState({
@@ -32,15 +33,7 @@ export default function Dashboard({ auth, errors }) {
                 >
                     <Head title="Dashboard" />
 
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col">
-                        <div className="flex">
-                            <InsertColumn className={"mr-1"} />
-
-                            <InsertTask />
-                        </div>
-
-                        <TaskItems tasks={[]} />
-                    </div>
+                    <TasksListing />
                 </div>
             </PopupContext.Provider>
         </AuthenticatedLayout>
