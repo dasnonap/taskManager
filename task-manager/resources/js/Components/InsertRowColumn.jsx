@@ -6,6 +6,7 @@ import { PopupContext } from "./PopupContext";
 import TextInput from "./TextInput";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
+import axios from "axios";
 
 export default function InsertColumn({ className }) {
     const { popupInfo, setIsPopupDisplaying } = useContext(PopupContext);
@@ -24,16 +25,19 @@ export default function InsertColumn({ className }) {
         );
     };
 
-    const handleRowInsert = (event) => {
+    const handleRowInsert = async (event) => {
         event.preventDefault();
 
-        post(
-            route("row.create", {
-                onSuccess: () => {
-                    reset("title");
-                },
+        await axios
+            .post(route("row.create"), new FormData(event.target))
+            .then(function (response) {
+                reset("title");
+                // Display Notification - Success
             })
-        );
+            .catch(function (error) {
+                // Dispay Notification - Error
+                console.log(error.response);
+            });
     };
 
     return (

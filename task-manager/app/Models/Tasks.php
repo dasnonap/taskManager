@@ -20,4 +20,9 @@ class Tasks extends Model
         'closed_at',
         'column_id',
     ];
+
+    public function row()
+    {
+        return $this->belongsTo(Row::class);
+    }
 }

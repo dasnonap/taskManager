@@ -14,4 +14,14 @@ class Row extends Model
         'user_id',
         'position',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

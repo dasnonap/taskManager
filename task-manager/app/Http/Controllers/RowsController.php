@@ -23,6 +23,6 @@ class RowsController extends Controller
 
         $row->save();
 
-        return redirect('/dashboard');
+        return response()->json(['status' => !empty($row)], 201);
     }
 }

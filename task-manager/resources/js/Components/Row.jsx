@@ -1,6 +1,7 @@
 import React from "react";
+import InsertTask from "./InsertTask";
 
-export default function Row({ title, tasks }) {
+export default function Row({ id, title, tasks }) {
     return (
         <div className="border-2 w-1/3 border-gray-700 rounded-sm">
             <h3 className="text-lg font-bold text-center text-white bg-gray-700">
@@ -87,6 +88,8 @@ export default function Row({ title, tasks }) {
                         <div className="text-xs">Urgent</div>
                     </div>
                 </div>
+
+                <InsertTask rowId={id} />
             </div>
         </div>
     );

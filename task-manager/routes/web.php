@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     });
 
-    Route::post('/task/create', [TasksController::class, 'create'])->name('task.create');
+    // Route::post('/task/create', [TasksController::class, 'create'])->name('task.create');
 
-    Route::post('/row/create', [RowsController::class, 'create'])->name('row.create');
+    // Route::post('/row/create', [RowsController::class, 'create'])->name('row.create');
 });
 
 require __DIR__ . '/auth.php';

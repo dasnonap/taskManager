@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tasks;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
     // Create Task
-    function create(Request $request): RedirectResponse
+    function create(Request $request)
     {
         $request->validate([
             'title' => ['required', 'string'],
@@ -28,6 +27,6 @@ class TasksController extends Controller
         ]);
         $task->save();
 
-        return redirect('/dashboard');
+        return response()->json(['status' => !empty($task)], 201);
     }
 }

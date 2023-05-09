@@ -7,12 +7,14 @@ import { useForm } from "@inertiajs/react";
 import { useContext } from "react";
 import { PopupContext } from "./PopupContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
-export default function InsertTask({ className }) {
+export default function InsertTask({ rowId, className }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         description: "",
         start_at: "",
+        row_id: rowId,
         end_at: "",
     });
     const { popupInfo, setIsPopupDisplaying } = useContext(PopupContext);
@@ -30,12 +32,16 @@ export default function InsertTask({ className }) {
     const handleTaskInsert = (event) => {
         event.preventDefault();
 
-        post(
-            route("task.create", {
-                onSuccess: () =>
-                    reset("title", "description", "start_at", "end_at"),
-            })
-        );
+        axios
+            .post(
+                route("task.create"),
+                new FormData(event.target).then(function (response) {
+                    reset("title", "description", "start_at", "end_at");
+                })
+            )
+            .catch(function (error) {
+                console.log(error);
+            });
     };
     return (
         <div className={className}>
@@ -84,6 +90,16 @@ export default function InsertTask({ className }) {
                 </div>
 
                 <form onSubmit={handleTaskInsert} className="w-full">
+                    <TextInput
+                        required={true}
+                        id="row_id"
+                        type="number"
+                        name="row_id"
+                        value={data.row_id}
+                        className="mt-1 block w-full"
+                        handleChange={onHandleChange}
+                    />
+
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col w-full">
                             <InputLabel
