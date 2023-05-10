@@ -20,10 +20,11 @@ class TasksController extends Controller
 
         $task = new Tasks([
             'title' => $request->title,
-            'user_id' => Auth::id(),
+            'user_id' => $request->user()->id,
             'description' => $request->description,
             'start_time' => $request->start_at,
             'end_time' => $request->end_at,
+            'column_id' => $request->row_id
         ]);
         $task->save();
 

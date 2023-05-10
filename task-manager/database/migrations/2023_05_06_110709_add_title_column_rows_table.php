@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('rows', function (Blueprint $table) {
-            $table->string('title');
+            // $table->string('title');
         });
     }
 

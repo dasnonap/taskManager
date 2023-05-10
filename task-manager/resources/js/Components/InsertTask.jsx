@@ -18,8 +18,11 @@ export default function InsertTask({ rowId, className }) {
         end_at: "",
     });
     const { popupInfo, setIsPopupDisplaying } = useContext(PopupContext);
-    const isPopupDisplaying =
-        typeof popupInfo !== "undefined" ? popupInfo.isDisplaying : false;
+    let isPopupDisplaying = false;
+
+    if (typeof popupInfo !== "undefined" && popupInfo.popupId === rowId) {
+        isPopupDisplaying = popupInfo.isDisplaying;
+    }
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -33,12 +36,10 @@ export default function InsertTask({ rowId, className }) {
         event.preventDefault();
 
         axios
-            .post(
-                route("task.create"),
-                new FormData(event.target).then(function (response) {
-                    reset("title", "description", "start_at", "end_at");
-                })
-            )
+            .post(route("task.create"), new FormData(event.target))
+            .then(function (response) {
+                reset("title", "description", "start_at", "end_at");
+            })
             .catch(function (error) {
                 console.log(error);
             });
@@ -51,6 +52,7 @@ export default function InsertTask({ rowId, className }) {
                     setIsPopupDisplaying({
                         isDisplaying: !isPopupDisplaying,
                         type: "tasks",
+                        popupId: rowId,
                     });
                 }}
                 type="button"
@@ -77,6 +79,7 @@ export default function InsertTask({ rowId, className }) {
                             setIsPopupDisplaying({
                                 isDisplaying: !isPopupDisplaying,
                                 type: "",
+                                popupId: rowId,
                             });
                         }}
                         className="absolute top-8 right-5 group"

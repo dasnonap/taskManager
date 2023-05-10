@@ -1,10 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
-import TaskItems from "@/Components/TaskItems";
-import InsertTask from "@/Components/InsertTask";
 import { PopupContext } from "@/Components/PopupContext";
-import InsertColumn from "@/Components/InsertRowColumn";
 import TasksListing from "@/Components/TasksListing";
 
 export default function Dashboard({ auth, errors }) {
