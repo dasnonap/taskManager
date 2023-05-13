@@ -1,9 +1,13 @@
 import React from "react";
 import InsertTask from "./InsertTask";
 
-export default function Row({ id, title, tasks }) {
+export default function Row({ id, title, tasks, className }) {
     return (
-        <div className="border-2 w-1/3 border-gray-700 rounded-sm">
+        <div
+            className={
+                className + " border-2 w-100 border-gray-700 rounded-sm "
+            }
+        >
             <h3 className="text-lg font-bold text-center text-white bg-gray-700">
                 {title}
             </h3>

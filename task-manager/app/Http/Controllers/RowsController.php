@@ -25,4 +25,13 @@ class RowsController extends Controller
 
         return response()->json(['status' => !empty($row)], 201);
     }
+
+    function index(Request $request)
+    {
+        $user = $request->user();
+
+        $userRows = $user->rows();
+
+        dd($userRows);
+    }
 }

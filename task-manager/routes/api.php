@@ -22,7 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/task', [TasksController::class, 'create'])->name('task.create');
+    Route::post('/tasks', [TasksController::class, 'create'])->name('tasks.create');
 
-    Route::post('/row', [RowsController::class, 'create'])->name('row.create');
+    Route::post('/rows', [RowsController::class, 'create'])->name('rows.create');
+
+    Route::get('/rows', [RowsController::class, 'index'])->name('rows.index');
 });

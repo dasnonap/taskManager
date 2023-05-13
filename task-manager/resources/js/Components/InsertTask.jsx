@@ -36,7 +36,7 @@ export default function InsertTask({ rowId, className }) {
         event.preventDefault();
 
         axios
-            .post(route("task.create"), new FormData(event.target))
+            .post(route("tasks.create"), new FormData(event.target))
             .then(function (response) {
                 reset("title", "description", "start_at", "end_at");
             })

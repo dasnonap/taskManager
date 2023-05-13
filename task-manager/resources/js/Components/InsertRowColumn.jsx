@@ -29,7 +29,7 @@ export default function InsertColumn({ className }) {
         event.preventDefault();
 
         await axios
-            .post(route("row.create"), new FormData(event.target))
+            .post(route("rows.create"), new FormData(event.target))
             .then(function (response) {
                 reset("title");
                 // Display Notification - Success
