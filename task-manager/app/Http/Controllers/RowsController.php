@@ -30,7 +30,7 @@ class RowsController extends Controller
     {
         $user = $request->user();
 
-        $userRows = $user->rows();
+        $userRows = $user->with('rows.tasks')->get();
 
         dd($userRows);
     }

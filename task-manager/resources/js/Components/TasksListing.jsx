@@ -1,15 +1,14 @@
 import React from "react";
 import InsertColumn from "./InsertRowColumn";
 import TaskItems from "./TaskItems";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const displayTasks = () => {
-    return axios.get(route("rows.index"));
-};
-
-const queryClient = useQueryClient();
 export default function TasksListing({}) {
+    const queryClient = useQueryClient();
+    const displayTasks = () => {
+        return axios.get(route("rows.index"));
+    };
     const tasksQuery = useQuery({
         queryFn: displayTasks,
         queryKey: ["tasks"],

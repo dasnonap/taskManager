@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tasks;
+use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -18,7 +17,7 @@ class TasksController extends Controller
             'end_at' => ['required', 'date_format:Y-m-d']
         ]);
 
-        $task = new Tasks([
+        $task = new Task([
             'title' => $request->title,
             'user_id' => $request->user()->id,
             'description' => $request->description,

@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function rows()
     {
-        return $this->hasMany(Rows::class);
+        return $this->hasMany(Row::class);
     }
 }

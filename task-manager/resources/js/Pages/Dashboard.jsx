@@ -3,7 +3,7 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import { PopupContext } from "@/Components/PopupContext";
 import TasksListing from "@/Components/TasksListing";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
