@@ -1,7 +1,7 @@
 import React from "react";
 import Row from "./Row";
 
-export default function TaskItems({ tasks }) {
+export default function TaskItems({ rows }) {
     return (
         <div className="py-12">
             <div className="grid gap-6 grid-cols-5 ">

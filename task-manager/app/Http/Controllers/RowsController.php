@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Row;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RowsController extends Controller
 {
@@ -26,12 +27,16 @@ class RowsController extends Controller
         return response()->json(['status' => !empty($row)], 201);
     }
 
-    function index(Request $request)
+    // Fetch all user Rows and associated tasks
+    function index(Request $request): Response
     {
         $user = $request->user();
 
-        $userRows = $user->with('rows.tasks')->get();
+        $userRows = Row::where('user_id', $user->id)
+            ->with('tasks')
+            ->get()
+            ->toArray();
 
-        dd($userRows);
+        return response($userRows, 200);
     }
 }

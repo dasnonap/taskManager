@@ -18,7 +18,7 @@ class Task extends Model
         'start_time',
         'end_time',
         'closed_at',
-        'column_id',
+        'row_id',
     ];
 
     public function row()

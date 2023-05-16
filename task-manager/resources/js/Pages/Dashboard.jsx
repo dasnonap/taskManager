@@ -1,17 +1,17 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
-import { PopupContext } from "@/Components/PopupContext";
+// import { PopupContext } from "@/Components/PopupContext";
 import TasksListing from "@/Components/TasksListing";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
 export default function Dashboard({ auth, errors }) {
-    const [popupInfo, setIsPopupDisplaying] = useState({
-        isDisplaying: false,
-        type: "",
-    });
+    // const [popupInfo, setIsPopupDisplaying] = useState({
+    //     isDisplaying: false,
+    //     type: "",
+    // });
 
     return (
         <AuthenticatedLayout
@@ -23,21 +23,15 @@ export default function Dashboard({ auth, errors }) {
                 </h2>
             }
         >
-            <PopupContext.Provider value={{ popupInfo, setIsPopupDisplaying }}>
-                <div
-                    className={
-                        popupInfo.isDisplaying === true
-                            ? `body-test popup-active`
-                            : `body-test`
-                    }
-                >
-                    <Head title="Dashboard" />
+            {/* <PopupContext.Provider value={{ popupInfo, setIsPopupDisplaying }}> */}
 
-                    <QueryClientProvider client={queryClient}>
-                        <TasksListing />
-                    </QueryClientProvider>
-                </div>
-            </PopupContext.Provider>
+            <Head title="Dashboard" />
+
+            <QueryClientProvider client={queryClient}>
+                <TasksListing />
+            </QueryClientProvider>
+
+            {/* </PopupContext.Provider> */}
         </AuthenticatedLayout>
     );
 }

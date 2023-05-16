@@ -13,7 +13,7 @@ export default function TasksListing({}) {
         queryFn: displayTasks,
         queryKey: ["tasks"],
     });
-    console.log(tasksQuery);
+    console.log(tasksQuery.data);
 
     return (
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col">
@@ -21,7 +21,7 @@ export default function TasksListing({}) {
                 <InsertColumn className={"mr-1"} />
             </div>
 
-            <TaskItems />
+            <TaskItems rows={[]} />
         </div>
     );
 }
