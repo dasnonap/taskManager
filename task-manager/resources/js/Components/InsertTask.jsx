@@ -4,9 +4,7 @@ import TextArea from "./TextArea";
 import PrimaryButton from "./PrimaryButton";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
-import { useContext } from "react";
-import { PopupContext } from "./PopupContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Popup from "./Popup";
 import axios from "axios";
 
 export default function InsertTask({ rowId, className }) {
@@ -17,12 +15,6 @@ export default function InsertTask({ rowId, className }) {
         row_id: rowId,
         end_at: "",
     });
-    const { popupInfo, setIsPopupDisplaying } = useContext(PopupContext);
-    let isPopupDisplaying = false;
-
-    if (typeof popupInfo !== "undefined" && popupInfo.popupId === rowId) {
-        isPopupDisplaying = popupInfo.isDisplaying;
-    }
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -46,52 +38,7 @@ export default function InsertTask({ rowId, className }) {
     };
     return (
         <div className={className}>
-            <PrimaryButton
-                onClick={(e) => {
-                    e.preventDefault();
-                    setIsPopupDisplaying({
-                        isDisplaying: !isPopupDisplaying,
-                        type: "tasks",
-                        popupId: rowId,
-                    });
-                }}
-                type="button"
-            >
-                Create Task
-            </PrimaryButton>
-
-            <div
-                className={
-                    `popup border border-1 rounded-md p-8 m-8 bg-white flex my-6 mx-auto flex-col items-center fixed h-fit inset-0 w-1/2 transition-all overflow-auto` +
-                    (isPopupDisplaying === true && popupInfo.type === "tasks"
-                        ? ` visible opacity-100 `
-                        : ` invisible opacity-0`)
-                }
-            >
-                <div className="mb-4 flex justify-content-center">
-                    <div></div>
-
-                    <h3 className="font-extrabold text-4xl">Create new Task</h3>
-
-                    <PrimaryButton
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setIsPopupDisplaying({
-                                isDisplaying: !isPopupDisplaying,
-                                type: "",
-                                popupId: rowId,
-                            });
-                        }}
-                        className="absolute top-8 right-5 group"
-                        type="button"
-                    >
-                        <FontAwesomeIcon
-                            icon="fa-solid fa-xmark"
-                            className="transition-all group-hover:rotate-45"
-                        />
-                    </PrimaryButton>
-                </div>
-
+            <Popup openPopupButton={"Insert Task"}>
                 <form onSubmit={handleTaskInsert} className="w-full">
                     <TextInput
                         required={true}
@@ -177,7 +124,7 @@ export default function InsertTask({ rowId, className }) {
                         Add New
                     </PrimaryButton>
                 </form>
-            </div>
+            </Popup>
         </div>
     );
 }

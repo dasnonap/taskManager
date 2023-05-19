@@ -1,7 +1,5 @@
 import React from "react";
 import PrimaryButton from "./PrimaryButton";
-import { useContext, useState } from "react";
-import { PopupContext } from "./PopupContext";
 import TextInput from "./TextInput";
 import InputLabel from "./InputLabel";
 import Popup from "./Popup";
@@ -9,7 +7,6 @@ import { useForm } from "@inertiajs/react";
 import axios from "axios";
 
 export default function InsertColumn({ className }) {
-    // const [isPopupOpened, setIsPopupOpened] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         position: 1,
