@@ -7,7 +7,7 @@ import { useForm } from "@inertiajs/react";
 import Popup from "./Popup";
 import axios from "axios";
 
-export default function InsertTask({ rowId, className }) {
+export default function InsertTask({ rowId, className, onInsertTask }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         description: "",
@@ -31,10 +31,9 @@ export default function InsertTask({ rowId, className }) {
             .post(route("tasks.create"), new FormData(event.target))
             .then(function (response) {
                 reset("title", "description", "start_at", "end_at");
+                onInsertTask();
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            .catch(function (error) {});
     };
     return (
         <div className={className}>

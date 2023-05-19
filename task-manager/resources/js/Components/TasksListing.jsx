@@ -9,19 +9,26 @@ export default function TasksListing({}) {
     const displayTasks = () => {
         return axios.get(route("rows.index"));
     };
-    const tasksQuery = useQuery({
+    const { isLoading, isError, data, error } = useQuery({
         queryFn: displayTasks,
         queryKey: ["tasks"],
+        refetchOnWindowFocus: false,
     });
-    console.log(tasksQuery.data);
 
+    const handleTaskInsert = () => {
+        queryClient.invalidateQueries("tasks");
+    };
     return (
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col">
             <div className="flex">
                 <InsertColumn className={"mr-1"} />
             </div>
 
-            <TaskItems rows={[]} />
+            {isLoading ? (
+                "Loading ..."
+            ) : (
+                <TaskItems rows={data.data} onInsertTask={handleTaskInsert} />
+            )}
         </div>
     );
 }

@@ -23,7 +23,7 @@ class TasksController extends Controller
             'description' => $request->description,
             'start_time' => $request->start_at,
             'end_time' => $request->end_at,
-            'column_id' => $request->row_id
+            'row_id' => $request->row_id
         ]);
         $task->save();
 
