@@ -6,8 +6,9 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faXmark);
+library.add(faXmark, faGear);
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";

@@ -1,7 +1,6 @@
 export default function Task({ task }) {
-    console.log(task);
-
     if (!task) return;
+
     return (
         <div className="border-2 rounded-sm p-2 bg-white ">
             <div className="text-sm mb-4 ">
