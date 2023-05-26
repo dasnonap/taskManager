@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Task;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RowResource extends JsonResource
@@ -19,7 +18,7 @@ class RowResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'position' => $this->position,
-            'tasks' => TaskResource::collection($request)->toArray($request),
+            'tasks' => TaskResource::collection($this->tasks)->toArray($request),
         ];
     }
 }
