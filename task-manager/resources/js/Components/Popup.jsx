@@ -3,8 +3,12 @@ import { useState } from "react";
 import PrimaryButton from "./PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Popup({ openPopupButton, children, externalOpen }) {
-    if (!openPopupButton) return;
+export default function Popup({
+    openPopupButton,
+    children,
+    iconButton,
+    externalOpen,
+}) {
     const [isOpened, setIsOpened] = useState(externalOpen);
 
     return (
@@ -16,7 +20,14 @@ export default function Popup({ openPopupButton, children, externalOpen }) {
                 }}
                 type="button"
             >
-                {openPopupButton}
+                {iconButton && iconButton.length ? (
+                    <FontAwesomeIcon
+                        icon={iconButton}
+                        className="transition-all group-hover:rotate-45"
+                    />
+                ) : (
+                    openPopupButton
+                )}
             </PrimaryButton>
 
             <div
@@ -39,7 +50,6 @@ export default function Popup({ openPopupButton, children, externalOpen }) {
                             onClick={(e) => {
                                 e.preventDefault();
                                 setIsOpened(!isOpened);
-                                console.log(isOpened);
                             }}
                             className="absolute top-8 right-5 group"
                             type="button"
