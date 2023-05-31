@@ -25,4 +25,9 @@ class Task extends Model
     {
         return $this->belongsTo(Row::class);
     }
+
+    public function priorities()
+    {
+        return $this->belongsToMany(Priority::class, 'task_priority', 'task_id', 'priority_id');
+    }
 }

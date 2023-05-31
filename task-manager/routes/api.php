@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\RowsController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Http\Request;
@@ -27,4 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/rows', [RowsController::class, 'create'])->name('rows.create');
 
     Route::get('/rows', [RowsController::class, 'index'])->name('rows.index');
+
+    Route::post('/priorities', [PriorityController::class, 'create'])->name('priority.create');
+
+    Route::get('/priorities', [PriorityController::class, 'index'])->name('priority.index');
 });

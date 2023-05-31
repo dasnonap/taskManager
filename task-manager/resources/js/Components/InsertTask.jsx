@@ -4,6 +4,7 @@ import TextArea from "./TextArea";
 import PrimaryButton from "./PrimaryButton";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
+import { useQuery } from "@tanstack/react-query";
 import Popup from "./Popup";
 import axios from "axios";
 
@@ -15,6 +16,12 @@ export default function InsertTask({ rowId, className, onInsertTask }) {
         row_id: rowId,
         end_at: "",
     });
+    const { isLoading, isError, priorities, error } = useQuery({
+        queryFn: fetchPriorities,
+        queryKey: ["priorities"],
+        refetchOnWindowFocus: false,
+    });
+
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -22,6 +29,10 @@ export default function InsertTask({ rowId, className, onInsertTask }) {
                 ? event.target.checked
                 : event.target.value
         );
+    };
+
+    const fetchPriorities = () => {
+        return axios.get(route("priority.index"));
     };
 
     const handleTaskInsert = (event) => {

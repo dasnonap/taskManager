@@ -1,18 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
-// import { PopupContext } from "@/Components/PopupContext";
 import TasksListing from "@/Components/TasksListing";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
 export default function Dashboard({ auth, errors }) {
-    // const [popupInfo, setIsPopupDisplaying] = useState({
-    //     isDisplaying: false,
-    //     type: "",
-    // });
-
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -23,15 +16,10 @@ export default function Dashboard({ auth, errors }) {
                 </h2>
             }
         >
-            {/* <PopupContext.Provider value={{ popupInfo, setIsPopupDisplaying }}> */}
-
             <Head title="Dashboard" />
-
             <QueryClientProvider client={queryClient}>
                 <TasksListing />
             </QueryClientProvider>
-
-            {/* </PopupContext.Provider> */}
         </AuthenticatedLayout>
     );
 }
