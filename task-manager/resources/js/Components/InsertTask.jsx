@@ -10,7 +10,6 @@ import { PrioritiesContext } from "./PrioritiesContext";
 
 export default function InsertTask({ rowId, className, onInsertTask }) {
     const priorities = useContext(PrioritiesContext);
-    console.log(priorities);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         description: "",
@@ -89,36 +88,38 @@ export default function InsertTask({ rowId, className, onInsertTask }) {
                             />
                         </div>
 
-                        <div className="flex flex-col w-full">
-                            <InputLabel
-                                for="start_at"
-                                value="Choose starting date"
-                                className="text-l font-bold tracking-wide"
-                            />
+                        <div className="flex flex-row gap-4">
+                            <div className="flex flex-col w-1/2">
+                                <InputLabel
+                                    for="start_at"
+                                    value="Choose starting date"
+                                    className="text-l font-bold tracking-wide"
+                                />
 
-                            <input
-                                required={true}
-                                type="date"
-                                id="start_at"
-                                name="start_at"
-                                onChange={onHandleChange}
-                            />
-                        </div>
+                                <input
+                                    required={true}
+                                    type="date"
+                                    id="start_at"
+                                    name="start_at"
+                                    onChange={onHandleChange}
+                                />
+                            </div>
 
-                        <div className="flex flex-col w-full">
-                            <InputLabel
-                                for="end_at"
-                                value="Choose ending date"
-                                className="text-l font-bold tracking-wide"
-                            />
+                            <div className="flex flex-col w-1/2">
+                                <InputLabel
+                                    for="end_at"
+                                    value="Choose ending date"
+                                    className="text-l font-bold tracking-wide"
+                                />
 
-                            <input
-                                required={true}
-                                type="date"
-                                id="end_at"
-                                name="end_at"
-                                onChange={onHandleChange}
-                            />
+                                <input
+                                    required={true}
+                                    type="date"
+                                    id="end_at"
+                                    name="end_at"
+                                    onChange={onHandleChange}
+                                />
+                            </div>
                         </div>
                     </div>
 
