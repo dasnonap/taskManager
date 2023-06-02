@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PriorityResource;
 use App\Models\Priority;
 use Illuminate\Http\Request;
 
 class PriorityController extends Controller
 {
-    //
+    function index(Request $request)
+    {
+        $priorities = PriorityResource::collection(Priority::get());
+
+        return response()->json($priorities, 200);
+    }
+
     function create(Request $request)
     {
         $request->validate([
