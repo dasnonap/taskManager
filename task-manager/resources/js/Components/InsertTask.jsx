@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import PrimaryButton from "./PrimaryButton";
 import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
-import { useQuery } from "@tanstack/react-query";
 import Popup from "./Popup";
 import axios from "axios";
+import { PrioritiesContext } from "./PrioritiesContext";
 
 export default function InsertTask({ rowId, className, onInsertTask }) {
+    const priorities = useContext(PrioritiesContext);
+    console.log(priorities);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         description: "",

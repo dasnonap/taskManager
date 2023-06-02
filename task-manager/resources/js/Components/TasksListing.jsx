@@ -8,34 +8,32 @@ import { PrioritiesContext } from "./PrioritiesContext";
 
 export default function TasksListing({}) {
     const queryClient = useQueryClient();
-    const priorities = useContext(PrioritiesContext);
+    let priorities = useContext(PrioritiesContext);
     const fetchPriorities = () => {
         return axios.get(route("priority.index"));
     };
     const displayTasks = () => {
         return axios.get(route("rows.index"));
     };
+    const prioritiesQuery = useQuery({
+        queryFn: fetchPriorities,
+        queryKey: ["priorities"],
+        refetchOnWindowFocus: false,
+    });
     const { isLoading, isError, data, error } = useQuery({
         queryFn: displayTasks,
         queryKey: ["tasks"],
         refetchOnWindowFocus: false,
     });
-    const {
-        isPrioritiesLoading,
-        isPrioritiesError,
-        prioritiesData,
-        prioritiesError,
-    } = useQuery({
-        queryFn: fetchPriorities,
-        queryKey: ["priorities"],
-        refetchOnWindowFocus: false,
-    });
 
+    if (!prioritiesQuery.isLoading) {
+        priorities = prioritiesQuery.data.data;
+    }
     const handleTaskInsert = () => {
         queryClient.invalidateQueries("tasks");
     };
     return (
-        <PrioritiesContext.Provider value={prioritiesData}>
+        <PrioritiesContext.Provider value={priorities}>
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col">
                 <div className="flex">
                     <InsertColumn className={"mr-1"} />

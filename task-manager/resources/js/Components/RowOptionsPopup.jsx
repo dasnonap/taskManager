@@ -37,7 +37,7 @@ export default function RowOptionsPopup({ className, rowTitle }) {
                             />
 
                             <TextInput
-                                required={"false"}
+                                required={false}
                                 id="title"
                                 type="text"
                                 value={data.title}

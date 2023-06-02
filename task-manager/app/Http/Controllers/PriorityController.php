@@ -12,7 +12,9 @@ class PriorityController extends Controller
     {
         $priorities = PriorityResource::collection(Priority::get());
 
-        return response()->json($priorities, 200);
+        $priorities = $priorities->toArray($request);
+
+        return response($priorities, 200);
     }
 
     function create(Request $request)
