@@ -52,16 +52,26 @@ class RowsController extends Controller
         });
 
         $rows = $rows->map(function ($item, $index) use ($userRows) {
+            $row_data = $userRows[$index];
+
+            $userRows = $userRows->forget($index);
+
             return [
-                'row' => $userRows[$index],
+                'row' => $row_data,
                 'items' => $item,
             ];
         });
+        $rows = $rows->values();
+        $emptyRows = $userRows->values();
 
-        // $rows = $rows->concat($userRows);
-        dd($rows, $userRows);
+        $emptyRows = $emptyRows->map(function ($item, $index) {
+            return [
+                'row' => $item,
+                'items' => []
+            ];
+        });
 
-
+        $rows = $rows->concat($emptyRows);
 
         $rows = $rows->values()->toArray();
 
