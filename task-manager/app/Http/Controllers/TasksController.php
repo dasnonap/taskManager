@@ -31,4 +31,10 @@ class TasksController extends Controller
 
         return response()->json(['status' => !empty($task)], 201);
     }
+
+    // Display 1 Task information
+    function show(Request $request)
+    {
+        dd('alooou');
+    }
 }
