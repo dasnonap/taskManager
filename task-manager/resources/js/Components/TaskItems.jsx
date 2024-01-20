@@ -9,9 +9,9 @@ export default function TaskItems({ rows, onInsertTask }) {
                     ? rows.map(function (item) {
                           return (
                               <Row
-                                  title={item.title}
-                                  id={item.id}
-                                  tasks={item.tasks}
+                                  title={item.row[0].title}
+                                  id={item.row[0].id}
+                                  tasks={item.items}
                                   key={Math.random().toString()}
                                   className={""}
                                   onInsertTask={onInsertTask}

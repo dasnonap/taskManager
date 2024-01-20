@@ -14,7 +14,7 @@ class TasksController extends Controller
             'title' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'start_at' => ['required', 'date_format:Y-m-d'],
-            'end_at' => ['required', 'date_format:Y-m-d']
+            'end_at' => ['required', 'date_format:Y-m-d'],
         ]);
 
         $task = new Task([
@@ -23,8 +23,10 @@ class TasksController extends Controller
             'description' => $request->description,
             'start_time' => $request->start_at,
             'end_time' => $request->end_at,
-            'row_id' => $request->row_id
+            'row_id' => $request->row_id,
+            'priority_id' => $request->priority_id,
         ]);
+
         $task->save();
 
         return response()->json(['status' => !empty($task)], 201);

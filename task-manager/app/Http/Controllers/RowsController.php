@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RowResource;
+use App\Http\Resources\TaskResource;
 use App\Models\Row;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -32,13 +34,36 @@ class RowsController extends Controller
     {
         $user = $request->user();
         $rows = [];
-
-        $userResources = RowResource::collection(
+        $userRows = RowResource::collection(
             Row::where('user_id', $user->id)
                 ->get()
-        );
+        )->toArray($request);
 
-        $rows = $userResources->toArray($request);
+        $userRows = collect($userRows)->groupBy('id');
+
+        $userTasks = TaskResource::collection(
+            Task::where('user_id', $user->id)
+                ->with('priority')
+                ->get()
+        )->toArray($request);
+
+        $rows = collect($userTasks)->groupBy(function ($item) {
+            return $item['row'];
+        });
+
+        $rows = $rows->map(function ($item, $index) use ($userRows) {
+            return [
+                'row' => $userRows[$index],
+                'items' => $item,
+            ];
+        });
+
+        // $rows = $rows->concat($userRows);
+        dd($rows, $userRows);
+
+
+
+        $rows = $rows->values()->toArray();
 
         return response($rows, 200);
     }

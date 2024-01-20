@@ -6,6 +6,7 @@ import InputLabel from "./InputLabel";
 import { useForm } from "@inertiajs/react";
 import Popup from "./Popup";
 import axios from "axios";
+import SelectInput from "./SelectInput";
 import { PrioritiesContext } from "./PrioritiesContext";
 
 export default function InsertTask({ rowId, className, onInsertTask }) {
@@ -41,15 +42,24 @@ export default function InsertTask({ rowId, className, onInsertTask }) {
         <div className={className}>
             <Popup openPopupButton={"Insert Task"}>
                 <form onSubmit={handleTaskInsert} className="w-full">
-                    <TextInput
-                        required={true}
-                        id="row_id"
-                        type="number"
-                        name="row_id"
-                        value={data.row_id}
-                        className="mt-1 block w-full"
-                        handleChange={onHandleChange}
-                    />
+                    <div className="flex flex-row gap-4">
+                        <TextInput
+                            required={true}
+                            id="row_id"
+                            type="number"
+                            name="row_id"
+                            value={data.row_id}
+                            className="mt-1 block w-full"
+                            handleChange={onHandleChange}
+                        />
+
+                        <SelectInput
+                            options={priorities}
+                            name={"priority_id"}
+                            id={"priority_id"}
+                            isMultu={true}
+                        />
+                    </div>
 
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col w-full">

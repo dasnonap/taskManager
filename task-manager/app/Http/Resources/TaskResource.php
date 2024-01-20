@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Priority;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TaskResource extends JsonResource
@@ -15,11 +16,14 @@ class TaskResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
-            'closed_at' => $this->closed_at
+            'closed_at' => $this->closed_at,
+            'row' => $this->row_id,
+            'priority' => (new PriorityResource($this->priority))->toArray($request),
         ];
     }
 }

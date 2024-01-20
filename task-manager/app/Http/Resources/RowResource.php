@@ -18,7 +18,7 @@ class RowResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'position' => $this->position,
-            'tasks' => TaskResource::collection($this->tasks)->toArray($request),
+            // 'tasks' => TaskResource::collection($this->tasks)->toArray($request),
         ];
     }
 }

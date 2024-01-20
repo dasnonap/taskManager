@@ -3,7 +3,7 @@ export default function Task({ task }) {
 
     return (
         <div className="border-2 rounded-sm p-2 bg-white ">
-            <div className="text-sm mb-4 ">
+            <div className="text-sm mb-4">
                 {task.title ? <p>{task.title}</p> : ""}
             </div>
 
@@ -18,7 +18,7 @@ export default function Task({ task }) {
                     Review Notes
                 </button>
 
-                <div className="text-xs">Urgent</div>
+                <div className="text-xs">{task.priority.name}</div>
             </div>
         </div>
     );

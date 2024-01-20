@@ -19,6 +19,7 @@ class Task extends Model
         'end_time',
         'closed_at',
         'row_id',
+        'priority_id'
     ];
 
     public function row()
@@ -26,8 +27,8 @@ class Task extends Model
         return $this->belongsTo(Row::class);
     }
 
-    public function priorities()
+    public function priority()
     {
-        return $this->belongsToMany(Priority::class, 'task_priority', 'task_id', 'priority_id');
+        return $this->belongsTo(Priority::class);
     }
 }
