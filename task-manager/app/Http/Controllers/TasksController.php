@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Http\Resources\TaskResource;
 
 class TasksController extends Controller
 {
@@ -30,5 +32,15 @@ class TasksController extends Controller
         $task->save();
 
         return response()->json(['status' => !empty($task)], 201);
+    }
+
+    // Display single task
+    function show(Task $task, Request $request)
+    {
+        $taskInfo = (new TaskResource($task))->toArray($request);
+
+        return Inertia::render('Task', [
+            'data' => $taskInfo
+        ]);
     }
 }
