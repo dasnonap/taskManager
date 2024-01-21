@@ -19,11 +19,13 @@ class TaskResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
-            'closed_at' => $this->closed_at,
             'row' => $this->row_id,
             'priority' => (new PriorityResource($this->priority))->toArray($request),
+            'additional_info' => $this->mergeWhen($request->routeIs('tasks.show'), [
+                'start_time' => $this->start_time,
+                'end_time' => $this->end_time,
+                'closed_at' => $this->closed_at,
+            ]),
         ];
     }
 }

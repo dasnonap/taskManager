@@ -7,12 +7,12 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
-export default function Task({ auth, errors }) {
+export default function Task({ auth, errors, data }) {
     return (
         <>
             <AuthenticatedLayout auth={auth} errors={errors}>
                 <QueryClientProvider client={queryClient}>
-                    <TaskMain />
+                    <TaskMain task={data} />
                 </QueryClientProvider>
             </AuthenticatedLayout>
         </>

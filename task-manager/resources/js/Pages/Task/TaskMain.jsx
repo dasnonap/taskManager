@@ -1,3 +1,4 @@
-export default function TaskMain({}) {
-    return <>dsadsadsa</>;
+export default function TaskMain({ task }) {
+    console.log(task);
+    return <></>;
 }
