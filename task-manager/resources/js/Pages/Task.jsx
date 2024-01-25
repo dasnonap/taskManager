@@ -5,6 +5,7 @@ import { QueryClient } from "@tanstack/react-query";
 import TaskMain from "./Task/TaskMain";
 import TaskContent from "./Task/TaskContent";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { TaskContext } from "@/Contexts/TaskContext";
 
 const queryClient = new QueryClient();
 
@@ -12,11 +13,13 @@ export default function Task({ auth, errors, data }) {
     return (
         <>
             <AuthenticatedLayout auth={auth} errors={errors}>
-                <QueryClientProvider client={queryClient}>
-                    <TaskContent task={data} />
+                <TaskContext.Provider value={data}>
+                    <QueryClientProvider client={queryClient}>
+                        <TaskContent />
 
-                    <TaskMain task={data} />
-                </QueryClientProvider>
+                        <TaskMain />
+                    </QueryClientProvider>
+                </TaskContext.Provider>
             </AuthenticatedLayout>
         </>
     );
