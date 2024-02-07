@@ -43,4 +43,20 @@ class TasksController extends Controller
             'data' => $taskInfo
         ]);
     }
+
+    // Update a task 
+    function update(Task $task, Request $request)
+    {
+        $request->validate([
+            'time' => ['required', 'integer']
+        ]);
+
+        $task->update([
+            'elapsed_time' => $request->time
+        ]);
+
+        $task->save();
+
+        return response()->json(['status' => true], 201);
+    }
 }

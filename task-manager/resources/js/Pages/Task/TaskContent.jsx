@@ -1,5 +1,5 @@
 import DateBlock from "@/Components/DateBlock";
-import TimerButton from "@/Components/TimerButton";
+import Timer from "@/Components/Timer";
 import { TaskContext } from "@/Contexts/TaskContext";
 import { useContext } from "react";
 
@@ -15,7 +15,7 @@ export default function TaskContent({}) {
                             {task.title ? task.title : ""}
                         </h1>
 
-                        <TimerButton />
+                        <Timer />
                     </div>
 
                     <div className="flex flex-col gap-4 items-end">

@@ -25,6 +25,8 @@ class TaskResource extends JsonResource
                 'start_time' => $this->start_time,
                 'end_time' => $this->end_time,
                 'closed_at' => $this->closed_at,
+                'elapsed_time' => $this->elapsed_time,
+                'is_started' => $this->is_started,
             ]),
         ];
     }

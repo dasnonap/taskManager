@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', [TasksController::class, 'create'])->name('tasks.create');
 
+    Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
+
     Route::post('/rows', [RowsController::class, 'create'])->name('rows.create');
 
     Route::get('/rows', [RowsController::class, 'index'])->name('rows.index');
