@@ -19,7 +19,9 @@ class Task extends Model
         'end_time',
         'closed_at',
         'row_id',
-        'priority_id'
+        'priority_id',
+        'is_started',
+        'elapsed_time',
     ];
 
     public function row()
