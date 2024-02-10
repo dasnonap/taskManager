@@ -27,6 +27,8 @@ class TasksController extends Controller
             'end_time' => $request->end_at,
             'row_id' => $request->row_id,
             'priority_id' => $request->priority_id,
+            'is_closed' => false,
+            'elapsed_time' => 0,
         ]);
 
         $task->save();

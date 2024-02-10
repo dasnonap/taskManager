@@ -20,7 +20,7 @@ class Task extends Model
         'closed_at',
         'row_id',
         'priority_id',
-        'is_started',
+        'is_closed',
         'elapsed_time',
     ];
 
