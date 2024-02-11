@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     public $fillable = [
-        'user_id',
+        'task_id',
         'comment',
     ];
 }
