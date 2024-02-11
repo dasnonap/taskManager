@@ -16,7 +16,7 @@ class CommentsResource extends JsonResource
     {
         return [
             'comment' => $this->comment,
-            'created' => $this->created_at->format('F j, Y'),
+            'created' => $this->created_at->format('H:m/F j, Y'),
         ];
     }
 }

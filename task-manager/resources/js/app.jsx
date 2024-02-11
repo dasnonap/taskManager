@@ -7,8 +7,10 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faXmark, faGear);
+library.add(faXmark, faGear, faChevronRight, faChevronDown);
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
