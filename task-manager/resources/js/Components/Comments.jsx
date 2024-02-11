@@ -21,16 +21,21 @@ export default function Comments({}) {
     });
 
     return (
-        <>
+        <div>
             {isLoading ? (
                 "Loading Task Comments...."
             ) : (
-                <div className="flex flex-col ">
+                <div className="flex flex-col">
                     {data.data.map((comment) => {
-                        return <Comment comment={comment} />;
+                        return (
+                            <Comment
+                                comment={comment}
+                                key={Math.random().toString()}
+                            />
+                        );
                     })}
                 </div>
             )}
-        </>
+        </div>
     );
 }

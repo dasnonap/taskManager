@@ -6,7 +6,7 @@ import { TaskContext } from "@/Contexts/TaskContext";
 import { useContext, useState } from "react";
 import axios from "axios";
 
-export default function CommentForm({}) {
+export default function CommentForm({ onCreateComment }) {
     const task = useContext(TaskContext);
     const [formErrors, setFormErrors] = useState();
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -24,9 +24,10 @@ export default function CommentForm({}) {
             .post(route("comments.create"), data)
             .then(function (response) {
                 reset("comment");
-                // update comments
+                onCreateComment();
             })
             .catch(function (error) {
+                console.log(error);
                 setFormErrors(error.response.data.message);
             });
     };
