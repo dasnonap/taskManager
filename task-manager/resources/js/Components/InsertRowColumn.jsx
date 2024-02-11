@@ -37,7 +37,7 @@ export default function InsertColumn({ className }) {
 
     return (
         <div className={className}>
-            <Popup openPopupButton={"cREATE COLUMN"}>
+            <Popup openPopupButton={"Create Column"}>
                 <form onSubmit={handleRowInsert} className="w-full">
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col w-full">

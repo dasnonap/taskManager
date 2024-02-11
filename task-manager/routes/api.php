@@ -41,4 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Comments Endpoints
     Route::post('/comments', [CommentsController::class, 'create'])->name('comments.create');
+
+    Route::get('/comments', [CommentsController::class, 'index'])->name('comments.index');
 });

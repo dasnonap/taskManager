@@ -24,6 +24,7 @@ export default function CommentForm({}) {
             .post(route("comments.create"), data)
             .then(function (response) {
                 reset("comment");
+                // update comments
             })
             .catch(function (error) {
                 setFormErrors(error.response.data.message);
