@@ -21,6 +21,7 @@ class CommentsController extends Controller
 
         $comments = CommentsResource::collection(
             Comment::where('task_id', $request->task)
+                ->with('user')
                 ->get()
         )->toArray($request);
 
@@ -44,7 +45,8 @@ class CommentsController extends Controller
 
         $comment = new Comment([
             'task_id' => $task->id,
-            'comment' => $request->comment
+            'comment' => $request->comment,
+            'user_id' => $request->user()->id,
         ]);
 
         $comment->save();
