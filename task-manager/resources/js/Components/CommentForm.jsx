@@ -46,7 +46,7 @@ export default function CommentForm({ onCreateComment }) {
                             name="comment"
                             id="comment"
                             className="w-full"
-                            data={data.comment}
+                            value={data.comment}
                             placeholder=""
                             rows="4"
                             cols="4"
