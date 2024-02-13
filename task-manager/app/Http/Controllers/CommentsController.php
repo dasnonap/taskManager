@@ -22,8 +22,13 @@ class CommentsController extends Controller
         $comments = CommentsResource::collection(
             Comment::where('task_id', $request->task)
                 ->with('user')
+
+                ->latest()
+                ->take(5)
                 ->get()
         )->toArray($request);
+
+        $comments = array_reverse($comments);
 
         return response()->json($comments, 201);
     }

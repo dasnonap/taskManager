@@ -26,11 +26,15 @@ export default function Comments({}) {
                 "Loading Task Comments...."
             ) : (
                 <div className="flex flex-col">
-                    {data.data.map((comment) => {
+                    {data.data.map((comment, index) => {
+                        let isOpened =
+                            index == data.data.length - 1 ? true : false;
+
                         return (
                             <Comment
                                 comment={comment}
                                 key={Math.random().toString()}
+                                startOpened={isOpened}
                             />
                         );
                     })}

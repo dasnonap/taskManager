@@ -2,10 +2,10 @@ import { useState } from "react";
 import PrimaryButton from "./PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Comment({ comment }) {
+export default function Comment({ comment, startOpened }) {
     if (!comment) return;
 
-    const [isOpened, setIsOpened] = useState(false);
+    const [isOpened, setIsOpened] = useState(startOpened);
 
     const onExpandButtonClick = (event) => {
         event.preventDefault();
