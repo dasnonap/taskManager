@@ -17,7 +17,10 @@ export default function Comment({ comment }) {
             {comment.created ? (
                 <div className="flex flex-row items-center justify-between">
                     <p className="italic text-sm">
-                        {"Posted at: " + comment.created}
+                        {"Posted at: " +
+                            comment.created +
+                            ", by " +
+                            comment.user}
                     </p>
 
                     <PrimaryButton onClick={onExpandButtonClick} type="button">
