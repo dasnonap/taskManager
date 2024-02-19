@@ -22,7 +22,6 @@ class CommentsController extends Controller
         $comments = CommentsResource::collection(
             Comment::where('task_id', $request->task)
                 ->with('user')
-
                 ->latest()
                 ->take(5)
                 ->get()
