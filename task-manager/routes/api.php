@@ -29,6 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
 
+    Route::patch('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+
     // Rows Endpoints
     Route::post('/rows', [RowsController::class, 'create'])->name('rows.create');
 

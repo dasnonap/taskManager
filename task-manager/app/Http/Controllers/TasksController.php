@@ -61,4 +61,17 @@ class TasksController extends Controller
 
         return response()->json(['status' => true], 201);
     }
+
+    // Edit a task
+    function edit(Task $task, Request $request)
+    {
+        $task->updateOrFail([
+            'is_closed' => $request->is_closed,
+            'closed_at' => $request->is_closed === true ? now() : null
+        ]);
+
+        $task->save();
+
+        return response()->json(['status' => true, 'task' => $task], 201);
+    }
 }

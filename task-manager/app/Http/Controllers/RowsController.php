@@ -43,6 +43,7 @@ class RowsController extends Controller
 
         $userTasks = TaskResource::collection(
             Task::where('user_id', $user->id)
+                ->where('is_closed', false)
                 ->with('priority')
                 ->get()
         )->toArray($request);

@@ -1,11 +1,27 @@
 import DateBlock from "@/Components/DateBlock";
+import PrimaryButton from "@/Components/PrimaryButton";
 import Timer from "@/Components/Timer";
 import { TaskContext } from "@/Contexts/TaskContext";
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 
 export default function TaskContent({}) {
     const task = useContext(TaskContext);
+    const [isClosed, setIsClosed] = useState(
+        task.additional_info.data.is_closed
+    );
 
+    const handleOnClickComplete = (event) => {
+        event.preventDefault();
+
+        axios
+            .patch(route("tasks.edit", task.id), {
+                is_closed: !isClosed,
+            })
+            .then(function (response) {
+                setIsClosed(!isClosed);
+            });
+    };
     return (
         <>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -28,6 +44,10 @@ export default function TaskContent({}) {
                             date={task.additional_info.data.end_time}
                             title="End Time:"
                         />
+
+                        <PrimaryButton onClick={handleOnClickComplete}>
+                            {isClosed ? "Activate Task" : "Complete Task"}
+                        </PrimaryButton>
                     </div>
                 </div>
             </div>
