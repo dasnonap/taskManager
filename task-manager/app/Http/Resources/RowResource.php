@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class RowResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class RowResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'position' => $this->position,
+            'slug' => sprintf("%s-%s", Str::kebab($this->title), $this->id),
         ];
     }
 }

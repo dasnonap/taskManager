@@ -57,11 +57,16 @@ class RowsController extends Controller
 
             $userRows = $userRows->forget($index);
 
+            $item = $item->sortBy(function ($taskItem) {
+                return $taskItem['position'];
+            }, SORT_NUMERIC, false)->values();
+
             return [
                 'row' => $row_data,
                 'items' => $item,
             ];
         });
+
         $rows = $rows->values();
         $emptyRows = $userRows->values();
 

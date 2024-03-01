@@ -21,6 +21,7 @@ class TaskResource extends JsonResource
             'description' => $this->description,
             'row' => $this->row_id,
             'priority' => (new PriorityResource($this->priority))->toArray($request),
+            'position' => $this->position,
             'additional_info' => $this->mergeWhen($request->routeIs('tasks.show'), [
                 'start_time' => $this->start_time,
                 'end_time' => $this->end_time,
