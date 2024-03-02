@@ -14,6 +14,7 @@ export default function Task({ auth, errors, data }) {
     return (
         <>
             <AuthenticatedLayout auth={auth} errors={errors}>
+                <Head title={data.title} />
                 <TaskContext.Provider value={data}>
                     <QueryClientProvider client={queryClient}>
                         <TaskContent />
