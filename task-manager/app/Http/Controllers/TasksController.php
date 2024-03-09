@@ -47,7 +47,8 @@ class TasksController extends Controller
         $taskInfo = (new TaskResource($task))->toArray($request);
 
         return Inertia::render('Task', [
-            'data' => $taskInfo
+            'data' => $taskInfo,
+            'title' => $taskInfo['title'],
         ]);
     }
 
