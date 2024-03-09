@@ -29,10 +29,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
 
+    Route::patch('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+
     // Rows Endpoints
     Route::post('/rows', [RowsController::class, 'create'])->name('rows.create');
 
     Route::get('/rows', [RowsController::class, 'index'])->name('rows.index');
+
+    Route::post('/rows/{row}/reorder', [RowsController::class, 'editTaskOrder'])->name('rows.edit.task.order');
 
     // Priorities Endpoints
     Route::post('/priorities', [PriorityController::class, 'create'])->name('priority.create');

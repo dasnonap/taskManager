@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Row;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\TaskResource;
+use Illuminate\Database\Eloquent\Collection;
 
 class TasksController extends Controller
 {
@@ -19,6 +21,8 @@ class TasksController extends Controller
             'end_at' => ['required', 'date_format:Y-m-d'],
         ]);
 
+        $newPositition = Row::find($request->row_id)->getNextPositionId();
+
         $task = new Task([
             'title' => $request->title,
             'user_id' => $request->user()->id,
@@ -29,6 +33,7 @@ class TasksController extends Controller
             'priority_id' => $request->priority_id,
             'is_closed' => false,
             'elapsed_time' => 0,
+            'position' => $newPositition
         ]);
 
         $task->save();
@@ -42,7 +47,8 @@ class TasksController extends Controller
         $taskInfo = (new TaskResource($task))->toArray($request);
 
         return Inertia::render('Task', [
-            'data' => $taskInfo
+            'data' => $taskInfo,
+            'title' => $taskInfo['title'],
         ]);
     }
 
@@ -60,5 +66,24 @@ class TasksController extends Controller
         $task->save();
 
         return response()->json(['status' => true], 201);
+    }
+
+    // Edit a task
+    function edit(Task $task, Request $request)
+    {
+        $argumentList = [];
+
+        if ($request->has('is_closed')) {
+            $argumentList = [
+                'is_closed' => $request->is_closed,
+                'closed_at' => $request->is_closed === true ? now() : null
+            ];
+        }
+
+        $task->updateOrFail($argumentList);
+
+        $task->save();
+
+        return response()->json(['status' => true, 'task'   => $task], 201);
     }
 }

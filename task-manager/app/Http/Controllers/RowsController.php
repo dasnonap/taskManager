@@ -43,6 +43,7 @@ class RowsController extends Controller
 
         $userTasks = TaskResource::collection(
             Task::where('user_id', $user->id)
+                ->where('is_closed', false)
                 ->with('priority')
                 ->get()
         )->toArray($request);
@@ -56,11 +57,16 @@ class RowsController extends Controller
 
             $userRows = $userRows->forget($index);
 
+            $item = $item->sortBy(function ($taskItem) {
+                return $taskItem['position'];
+            }, SORT_NUMERIC, false)->values();
+
             return [
                 'row' => $row_data,
                 'items' => $item,
             ];
         });
+
         $rows = $rows->values();
         $emptyRows = $userRows->values();
 
@@ -76,5 +82,25 @@ class RowsController extends Controller
         $rows = $rows->values()->toArray();
 
         return response($rows, 200);
+    }
+
+    // Update Row Task Order
+    function editTaskOrder(Row $row, Request $request)
+    {
+        if (!empty($request->tasks)) {
+            $tasks = $request->tasks;
+
+            foreach ($tasks as $index => $task) {
+                $taskObject = Task::find($task['id']);
+
+                $taskObject->updateOrFail([
+                    'position' => $index
+                ]);
+
+                $taskObject->save();
+            }
+        }
+
+        return response()->json(['success' => true], 200);
     }
 }

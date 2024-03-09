@@ -59,7 +59,7 @@ export default function CommentForm({ onCreateComment }) {
                             processing={processing}
                             className="w-full"
                         >
-                            Add New
+                            Post Comment
                         </PrimaryButton>
                     </div>
                 </div>
