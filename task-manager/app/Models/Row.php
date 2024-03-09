@@ -29,9 +29,4 @@ class Row extends Model
     {
         return $this->tasks()->where('is_closed', false)->getResults()->count();
     }
-
-    public function getTaskByPosition($position)
-    {
-        return $this->tasks()->where('position', $position)->getResults()->first();
-    }
 }
