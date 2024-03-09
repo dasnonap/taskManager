@@ -83,4 +83,24 @@ class RowsController extends Controller
 
         return response($rows, 200);
     }
+
+    // Update Row Task Order
+    function editTaskOrder(Row $row, Request $request)
+    {
+        if (!empty($request->tasks)) {
+            $tasks = $request->tasks;
+
+            foreach ($tasks as $index => $task) {
+                $taskObject = Task::find($task['id']);
+
+                $taskObject->updateOrFail([
+                    'position' => $index
+                ]);
+
+                $taskObject->save();
+            }
+        }
+
+        return response()->json(['success' => true], 200);
+    }
 }

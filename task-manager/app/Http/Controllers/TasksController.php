@@ -79,24 +79,10 @@ class TasksController extends Controller
             ];
         }
 
-        if ($request->has('destination')) {
-            $argumentList = [
-                'position' => $request->destination,
-            ];
-
-            $sourceTask = $task->row()->getResults()->getTaskByPosition($request->destination);
-
-            $sourceTask->updateOrFail([
-                'position' => $task->position,
-            ]);
-
-            $sourceTask->save();
-        }
         $task->updateOrFail($argumentList);
 
         $task->save();
-        dd($task);
 
-        return response()->json(['status' => true, 'task' => $task], 201);
+        return response()->json(['status' => true, 'task'   => $task], 201);
     }
 }

@@ -30,7 +30,6 @@ export default function TaskItems({ rows, onInsertTask }) {
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
 
-        console.log(result);
         if (result.destination.index == result.source.index) {
             return;
         }
@@ -44,36 +43,34 @@ export default function TaskItems({ rows, onInsertTask }) {
             result.destination.droppableId,
             finalRows
         );
-        // console.log(result, finalRows);
-        // console.log(
-        //     finalRows[destinationRowIndex].items[result.destination.index]
-        // );
 
-        axios
-            .patch(
-                route("tasks.edit", {
-                    task: result.draggableId,
-                }),
-                {
-                    destination:
-                        bufferRows[destinationRowIndex].items[
-                            result.destination.index
-                        ].position,
-                }
-            )
-            .then(function (response) {
-                console.log(response);
-            });
         let [sourceObject] = bufferRows[sourceRowIndex].items.splice(
             result.source.index,
             1
         );
+
         bufferRows[destinationRowIndex].items.splice(
             result.destination.index,
             0,
             sourceObject
         );
+
         setFinalRows(bufferRows);
+
+        axios
+            .post(
+                route(
+                    "rows.edit.task.order",
+                    bufferRows[sourceRowIndex].row[0].id
+                ),
+                {
+                    tasks: bufferRows[sourceRowIndex].items,
+                }
+            )
+            .then((response) => {
+                console.log(response);
+            });
+        console.log(bufferRows[sourceRowIndex].items);
     };
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>
