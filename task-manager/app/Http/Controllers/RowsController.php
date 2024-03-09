@@ -103,4 +103,28 @@ class RowsController extends Controller
 
         return response()->json(['success' => true], 200);
     }
+
+    // Edit Rows 
+    function edit(Row $row, Request $request)
+    {
+        $row->updateOrFail([
+            'title' => $request->title,
+            'position' => $request->position
+        ]);
+
+        return response()->json(['result' => 'success'], 200);
+    }
+
+    // Delete Row
+    function destroy(Row $row, Request $request)
+    {
+        // $tasks = $row->tasks()->getResults()->map(function ($task) use ($request) {
+        //     $task->updateOrFail([
+        //         'row_id' => $request->destination_id
+        //     ]);
+        // });
+        $result = $row->delete();
+
+        return response()->json(['result' => $result], 200);
+    }
 }

@@ -36,7 +36,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/rows', [RowsController::class, 'index'])->name('rows.index');
 
+    Route::post('/rows/{row}/edit', [RowsController::class, 'edit'])->name('rows.edit');
+
     Route::post('/rows/{row}/reorder', [RowsController::class, 'editTaskOrder'])->name('rows.edit.task.order');
+
+    Route::delete('/rows/{row}', [RowsController::class, 'destroy'])->name('rows.delete');
 
     // Priorities Endpoints
     Route::post('/priorities', [PriorityController::class, 'create'])->name('priority.create');

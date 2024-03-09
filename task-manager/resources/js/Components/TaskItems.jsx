@@ -15,15 +15,6 @@ const searchRowBySlug = (slug, rows) => {
     });
 };
 
-const searchTaskById = (id, tasks) => {
-    if (!id || !tasks) {
-        return tasks;
-    }
-
-    return tasks.filter((item, index) => {
-        console.log(item);
-    });
-};
 export default function TaskItems({ rows, onInsertTask }) {
     const [finalRows, setFinalRows] = useState(rows);
 
@@ -67,10 +58,7 @@ export default function TaskItems({ rows, onInsertTask }) {
                     tasks: bufferRows[sourceRowIndex].items,
                 }
             )
-            .then((response) => {
-                console.log(response);
-            });
-        console.log(bufferRows[sourceRowIndex].items);
+            .then((response) => {});
     };
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -80,10 +68,8 @@ export default function TaskItems({ rows, onInsertTask }) {
                         ? rows.map(function (item) {
                               return (
                                   <Row
-                                      title={item.row[0].title}
-                                      id={item.row[0].id}
+                                      row={item.row}
                                       tasks={item.items}
-                                      slug={item.row[0].slug}
                                       key={Math.random().toString()}
                                       className={""}
                                       onInsertTask={onInsertTask}

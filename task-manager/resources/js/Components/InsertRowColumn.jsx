@@ -5,8 +5,10 @@ import InputLabel from "./InputLabel";
 import Popup from "./Popup";
 import { useForm } from "@inertiajs/react";
 import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function InsertColumn({ className }) {
+    const queryClient = useQueryClient();
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         position: 1,
@@ -27,10 +29,9 @@ export default function InsertColumn({ className }) {
             .post(route("rows.create"), new FormData(event.target))
             .then(function (response) {
                 reset("title");
-                // Display Notification - Success
+                queryClient.invalidateQueries("tasks");
             })
             .catch(function (error) {
-                // Dispay Notification - Error
                 console.log(error.response);
             });
     };

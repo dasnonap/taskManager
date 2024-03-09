@@ -3,43 +3,37 @@ import InsertTask from "./InsertTask";
 import Task from "./Task";
 import RowOptionsPopup from "./RowOptionsPopup";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-export default function Row({
-    id,
-    title,
-    tasks,
-    slug,
-    className,
-    onInsertTask,
-}) {
-    const grid = 8;
-    const getListStyle = (isDraggingOver) => ({
-        background: isDraggingOver ? "lightblue" : "lightgrey",
-        display: "flex",
-        padding: grid,
-        overflow: "auto",
-    });
+export default function Row({ row, tasks, className, onInsertTask }) {
+    const queryClient = useQueryClient();
 
-    const getItemStyle = (isDragging, draggableStyle) => ({
-        userSelect: "none",
-        padding: grid * 2,
-        margin: `0 ${grid}px 0 0`,
-        background: isDragging ? "lightgreen" : "grey",
-        ...draggableStyle,
-    });
+    const handleOnRowDeleted = () => {
+        queryClient.invalidateQueries("tasks");
+    };
 
+    const handleOnRowUpdated = () => {
+        queryClient.invalidateQueries("tasks");
+    };
     return (
         <div
             className={className + " border-2 w-100 border-gray-700 rounded-sm"}
         >
             <div className="flex flex-row px-2 py-4 justify-between text-lg font-bold text-center text-white bg-gray-700">
-                <h3>{title}</h3>
-                <RowOptionsPopup rowTitle={title} className={"text-black"} />
+                <h3>{row[0].title}</h3>
+                <RowOptionsPopup
+                    rowId={row[0].id}
+                    rowTitle={row[0].title}
+                    className={"text-black"}
+                    canDelete={tasks.length == 0}
+                    onRowDeleted={handleOnRowDeleted}
+                    onRowUpdated={handleOnRowUpdated}
+                />
             </div>
 
             <div className="flex justify-between flex-col px-2 py-4">
                 {tasks && tasks.length > 0 ? (
-                    <Droppable droppableId={slug}>
+                    <Droppable droppableId={row[0].slug}>
                         {(provided, snapshot) => (
                             <div
                                 className="flex flex-col gap-4 mb-6"
@@ -72,7 +66,7 @@ export default function Row({
                 ) : (
                     <p className="opacity-75 italic mb-6">Empty...</p>
                 )}
-                <InsertTask rowId={id} onInsertTask={onInsertTask} />
+                <InsertTask rowId={row[0].id} onInsertTask={onInsertTask} />
             </div>
         </div>
     );
