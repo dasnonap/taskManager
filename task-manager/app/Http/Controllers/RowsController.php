@@ -8,6 +8,7 @@ use App\Models\Row;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PO;
 
 class RowsController extends Controller
 {
@@ -104,6 +105,16 @@ class RowsController extends Controller
         return response()->json(['success' => true], 200);
     }
 
+    // Index All rows
+    function indexAll(Request $request)
+    {
+        $rows = RowResource::collection(
+            Row::where("user_id", $request->user()->id)->get()
+        )->toArray($request);
+
+        return response()->json(['rows' => $rows], 200);
+    }
+
     // Edit Rows 
     function edit(Row $row, Request $request)
     {
@@ -118,11 +129,13 @@ class RowsController extends Controller
     // Delete Row
     function destroy(Row $row, Request $request)
     {
-        // $tasks = $row->tasks()->getResults()->map(function ($task) use ($request) {
-        //     $task->updateOrFail([
-        //         'row_id' => $request->destination_id
-        //     ]);
-        // });
+        if ($request->has('destination_row_id')) {
+            $row->tasks()->getResults()->map(function ($task) use ($request) {
+                $task->updateOrFail([
+                    'row_id' => $request->destination_row_id
+                ]);
+            });
+        }
         $result = $row->delete();
 
         return response()->json(['result' => $result], 200);

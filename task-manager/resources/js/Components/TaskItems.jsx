@@ -3,6 +3,7 @@ import Row from "./Row";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useState } from "react";
+import { useContext } from "react";
 
 // Search Row By Slug
 const searchRowBySlug = (slug, rows) => {
@@ -14,7 +15,6 @@ const searchRowBySlug = (slug, rows) => {
         return rowObject.row[0].slug === slug;
     });
 };
-
 export default function TaskItems({ rows, onInsertTask }) {
     const [finalRows, setFinalRows] = useState(rows);
 
