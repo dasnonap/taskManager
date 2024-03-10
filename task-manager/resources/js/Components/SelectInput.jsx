@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef } from "react";
 
 export default forwardRef(function SelectInput(
-    { className, options, name, id, onChange, isMulti },
+    { className, options, name, id, onChange, isMulti, selectedId },
     ref
 ) {
     if (!options || !options.length) return;
@@ -9,7 +9,13 @@ export default forwardRef(function SelectInput(
 
     return (
         <div className={className}>
-            <select name={name} id={id} onChange={onChange} multiple={isMulti}>
+            <select
+                name={name}
+                id={id}
+                onChange={onChange}
+                multiple={isMulti}
+                value={selectedId}
+            >
                 {options.map((option) => {
                     return (
                         <option

@@ -57,7 +57,7 @@ export default function InsertTask({ rowId, className, onInsertTask }) {
                             options={priorities}
                             name={"priority_id"}
                             id={"priority_id"}
-                            isMultu={true}
+                            isMulti={false}
                         />
                     </div>
 

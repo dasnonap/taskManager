@@ -3,7 +3,7 @@ import InsertTask from "./InsertTask";
 import Task from "./Task";
 import RowOptionsPopup from "./RowOptionsPopup";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Row({ row, tasks, className, onInsertTask }) {
     const queryClient = useQueryClient();
@@ -25,7 +25,7 @@ export default function Row({ row, tasks, className, onInsertTask }) {
                     rowId={row[0].id}
                     rowTitle={row[0].title}
                     className={"text-black"}
-                    canDelete={tasks.length == 0}
+                    hasItems={tasks.length > 0}
                     onRowDeleted={handleOnRowDeleted}
                     onRowUpdated={handleOnRowUpdated}
                 />
